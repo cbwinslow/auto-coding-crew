@@ -1,7 +1,7 @@
 ---
 name: autonomous-coding-crew
 kind: program
-services: [orchestrator, architect, researcher, implementer, reviewer, tester, security-expert, debugger, validator, synthesizer]
+services: [orchestrator, architect, researcher, knowledge-retrieval, memory-manager, github-ops, docker-ops, implementer, reviewer, tester, security-expert, debugger, validator, synthesizer]
 ---
 
 requires:
@@ -33,11 +33,17 @@ strategies:
 # Execution
 
 # Phase 0: Project initialization and team formation
+let past-experiences = call memory-manager
+  operation: "search"
+  content: "similar projects to {project-spec.summary}"
+  context: { project-type: project-spec.type, technologies: project-spec.technologies }
+
 let team-charter = call orchestrator
   task: "form team, understand spec, create project charter"
   project-spec: project-spec
   quality-bar: quality-bar
   team-size: team-size
+  past-experiences: past-experiences
 
 let research-questions = call orchestrator
   task: "identify knowledge gaps requiring external research"
@@ -47,6 +53,11 @@ let research-findings = call researcher
   task: "conduct targeted research on technologies, patterns, and dependencies"
   questions: research-questions
   depth: "comprehensive"
+
+let codebase-patterns = call knowledge-retrieval
+  task: "search existing codebase for relevant implementation patterns"
+  query: "similar projects and patterns for {project-spec.technologies}"
+  search-type: "patterns"
 
 let enriched-spec = call synthesizer
   task: "merge team-charter and research into actionable specification"
@@ -109,6 +120,7 @@ parallel for component in components (max-parallel: team-size):
     component: component
     architecture: architecture
     security-guidelines: security-architecture
+    codebase-patterns: codebase-patterns
   
   let unit-tests = call tester
     task: "write comprehensive unit tests for this component"
@@ -209,10 +221,16 @@ let documentation = call orchestrator
   tests: system-tests
   security: security-audit
 
+let docker-config = call docker-ops
+  operation: "build"
+  context: { app: integrated-system, architecture: architecture }
+  specs: { base-image: "node:18-alpine", ports: [3000, 5432] }
+
 let deployment-guide = call orchestrator
   task: "create deployment and operations guide"
   system: integrated-system
   architecture: architecture
+  docker-config: docker-config
   infrastructure: enriched-spec.infrastructure
 
 let knowledge-base = call synthesizer
@@ -221,6 +239,12 @@ let knowledge-base = call synthesizer
   architecture: architecture
   revisions: all-revisions-throughout-project
   final-validation: final-validation
+
+# Store project learnings in persistent memory
+call memory-manager
+  operation: "store"
+  content: knowledge-base
+  context: { project: project-spec.name, outcome: final-validation.overall-verdict, duration: execution-time }
 
 # Phase 6: Final deliverable packaging
 let complete-project = call synthesizer
@@ -232,5 +256,12 @@ let complete-project = call synthesizer
   knowledge: knowledge-base
   security-audit: security-audit
   quality-certification: final-validation.quality-certification
+
+# Optional: Create GitHub repository for the project
+if project-spec.create-repo:
+  let repo-result = call github-ops
+    operation: "create-repo"
+    context: { name: project-spec.name, description: project-spec.summary, private: false }
+    content: "Repository for {project-spec.name} - {final-validation.quality-summary}"
 
 return complete-project
