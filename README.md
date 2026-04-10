@@ -28,6 +28,9 @@ This system orchestrates a crew of 10 specialized AI agents that collaborate to 
 - **Anti-Hallucination**: Claim verification, source citation, cross-validation
 - **Comprehensive Testing**: Unit, integration, E2E, performance, security testing
 - **Professional Deliverables**: Architecture docs, API specs, test suites, security audits, deployment guides
+- **Knowledge-Enhanced**: Semantic search of existing codebases for implementation patterns
+- **Memory-Persistent**: Learns from past projects via Letta memory system
+- **DevOps-Ready**: Automated Docker containerization and GitHub repository management
 
 ## Requirements
 
@@ -141,6 +144,28 @@ How we'll know the project is complete and successful.
 - **6+**: For very large systems with independent modules
 
 Larger teams require more coordination overhead; orchestrator manages this automatically.
+
+## Enhanced Services
+
+The system now includes **16 specialized AI agents** leveraging advanced capabilities:
+
+#### Core Agents (Original)
+- **Orchestrator**: Project management and team coordination
+- **Architect**: System design and technology selection
+- **Researcher**: External research and fact verification
+- **Implementer**: Code writing and component development
+- **Reviewer**: Code quality assessment and best practices
+- **Tester**: Comprehensive testing strategy and execution
+- **Security-Expert**: Threat modeling and security implementation
+- **Debugger**: Root cause analysis and fix planning
+- **Validator**: Quality gate enforcement and standards compliance
+- **Synthesizer**: Consensus building and final integration
+
+#### Enhanced Agents (New)
+- **Knowledge-Retrieval**: Semantic search of existing codebases using CBW RAG
+- **Memory-Manager**: Persistent learning via Letta memory system
+- **GitHub-Ops**: Repository management and CI/CD integration
+- **Docker-Ops**: Containerization and deployment automation
 
 ## Architecture
 
