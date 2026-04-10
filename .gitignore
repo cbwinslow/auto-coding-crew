@@ -1,0 +1,42 @@
+# Build outputs
+dist/
+build/
+*.tgz
+*.zip
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.env
+.venv
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prose runtime state (usually regenerated)
+.prose/
+.origin/
+.work/
+
+# Temporary files
+*.tmp
+*.log
+*.pid
+
+# Test coverage
+coverage/
+.nyc_output
+
+# Misc
+.cache/
+temp/
