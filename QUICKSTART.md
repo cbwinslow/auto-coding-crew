@@ -6,6 +6,7 @@ Get your autonomous coding crew building in 5 minutes.
 
 - **OpenProse environment**: Claude Code + Opus, OpenCode + Opus, or Amp + Opus
 - **OpenProse skill installed**: Run `npx skills add openprose/prose`
+- **API keys configured**: Source `~/.bash_secrets` or set up `.env` file
 - **Bash shell** (Linux/Mac) or WSL on Windows
 
 ## Step 1: Clone and Setup
@@ -20,7 +21,29 @@ cd autonomous-coding-crew
 chmod +x run-crew.sh
 ```
 
-## Step 2: Prepare Your Project Specification
+## Step 2: Configure API Keys
+
+The system needs API keys for external services. Choose one option:
+
+**Option A: Source bash_secrets (recommended)**
+```bash
+source ~/.bash_secrets
+```
+
+**Option B: Use .env file**
+```bash
+cp .env.example .env
+# Edit .env with your actual API keys
+```
+
+**Required API keys:**
+- `GITHUB_TOKEN`: For repository operations
+- `BRAVE_API_KEY`: For web search (researcher agent)
+- `OPENROUTER_API_KEY`: Fallback model access
+
+The primary LLM API key is handled by your OpenProse environment.
+
+## Step 3: Prepare Your Project Specification
 
 Use the example as a template:
 
@@ -37,7 +60,7 @@ Edit `my-project-spec.md` with your specific requirements:
 
 **Tip**: The more detailed your spec, the better the output. Include specific APIs, data models, performance targets, and security requirements.
 
-## Step 3: Choose Quality Bar and Team Size
+## Step 4: Choose Quality Bar and Team Size
 
 Select your **quality bar** based on intended use:
 - **prototype**: Quick exploration, minimal testing (30min - 2hrs)
@@ -50,7 +73,7 @@ Select **team size** based on project scale:
 - **3-5** (default): Most applications
 - **6-10**: Large multi-module systems (requires substantial compute)
 
-## Step 4: Run the Crew
+## Step 5: Run the Crew
 
 ```bash
 # Basic usage
@@ -70,7 +93,7 @@ cat my-project-spec.md | prose run autonomous-coder.md \
   --team-size 3
 ```
 
-## Step 5: Monitor Progress
+## Step 6: Monitor Progress
 
 The crew runs autonomously. You can monitor:
 
@@ -92,7 +115,7 @@ ls .prose/runs/LATEST/bindings/
 - High-assurance: 6 - 12 hours
 - Large systems: 12 - 48 hours
 
-## Step 6: Collect Deliverables
+## Step 7: Collect Deliverables
 
 When complete, the crew returns a packaged project in `complete-project/`:
 
@@ -109,7 +132,7 @@ complete-project/
 └── knowledge-base/                # Lessons learned
 ```
 
-## Step 7: Review and Iterate
+## Step 8: Review and Iterate
 
 1. **Review deliverables**: Start with `README.md` and `ARCHITECTURE.md`
 2. **Run the application**: Follow `docs/deployment-guide.md`

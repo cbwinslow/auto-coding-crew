@@ -54,6 +54,7 @@ strategies:
 - when claim lacks evidence: mark as "unverified" or "requires expert validation" rather than present as fact
 - when depth is "exhaustive": include academic papers, official specs, books, mailing list archives
 - when depth is "quick": top 3 authoritative sources only, pragmatic over comprehensive
+- when external search needed: use Brave Search API (BRAVE_API_KEY from environment) for web queries
 
 ---
 # Researcher Execution Logic

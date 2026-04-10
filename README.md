@@ -36,6 +36,32 @@ This system orchestrates a crew of 10 specialized AI agents that collaborate to 
 - **Filesystem workspace**: Agents read/write files to communicate state
 - **Prose Complete system**: Capable of spawning subagent sessions and executing the Prose VM
 
+## API Keys & Environment Setup
+
+**OpenProse itself uses ONE API key** - the key for your Prose Complete environment (Claude Code, OpenCode, or Amp). Individual agents do not get separate LLM API keys - they are subagent sessions within the same context.
+
+However, some agents may need external API keys for specific functionality:
+
+- **Researcher**: Uses `BRAVE_API_KEY` for web search and fact-checking
+- **All agents**: May use `GITHUB_TOKEN` for repository operations
+- **Fallback models**: `OPENROUTER_API_KEY` if needed
+
+**Setup options:**
+
+1. **Source bash_secrets** (recommended):
+   ```bash
+   source ~/.bash_secrets  # Contains all API keys
+   ```
+
+2. **Use .env file**:
+   ```bash
+   cp .env.example .env    # Edit with your keys
+   ```
+
+3. **Environment variables**: Set directly in your shell or CI/CD
+
+The system automatically detects and uses available API keys from the environment.
+
 ## Installation
 
 Clone or copy this system to your workspace:
